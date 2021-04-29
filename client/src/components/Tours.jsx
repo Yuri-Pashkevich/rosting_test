@@ -17,7 +17,7 @@ import antaliya from '../assets/jpg/antaliya.jpeg'
 import limassol from '../assets/jpg/limassol.jpeg'
 import abu_dhabi from '../assets/jpg/abu dhabi.jpeg'
 import { useDispatch, useSelector } from 'react-redux'
-import { getEURcurrency, getUSDcurrency } from './actions/currency'
+import { getEURcurrency, getUSDcurrency } from '../actions/currency'
 
 export const Tours = ({ scrollRef }) => {
 

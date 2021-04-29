@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { registration } from '../components/actions/user'
+import { registration } from '../actions/user'
 import { setName, setTel, setShowSuccess, setShowFail, setFailMessage } from '../reducers/formReducer'
 
 export const Form = () => {

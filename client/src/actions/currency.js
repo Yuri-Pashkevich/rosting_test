@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setUSDexchangeRate, setEURexchangeRate } from '../../reducers/currencyReducer'
+import { setUSDexchangeRate, setEURexchangeRate } from '../reducers/currencyReducer'
 
 
 // Достаем нужные валюты с api НБРБ
