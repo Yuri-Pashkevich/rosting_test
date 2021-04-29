@@ -1,0 +1,4 @@
+{
+    "serverPort": 5000,
+    "dbUrl": "mongodb+srv://roster:roster12345@roster.bilxd.mongodb.net/roster?retryWrites=true&w=majority"
+}
