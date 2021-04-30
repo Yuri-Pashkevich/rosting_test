@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getEURcurrency, getUSDcurrency } from '../actions/currency'
 
 export const Tours = ({ scrollRef }) => {
-
+    
     const proposalCountries = [
         { id: 0, country: 'Болгария', flag: bulgaria },
         { id: 1, country: 'Италия', flag: italy },
@@ -33,9 +33,6 @@ export const Tours = ({ scrollRef }) => {
         { id: 8, country: 'Грузия', flag: georgia }
     ]
 
-    const usdExchangeRate = useSelector(state => state.currency.exchangeRateUSD)
-    const eurExchangeRate = useSelector(state => state.currency.exchangeRateEUR)
-
     const proposalCities = [
         { id: 0, city: 'Анталия', country: 'Турция', city_photo: antaliya, price_byn: '1500' },
         { id: 1, city: 'Абу-даби', country: 'ОАЭ', city_photo: abu_dhabi, price_byn: '2300' },
@@ -44,10 +41,17 @@ export const Tours = ({ scrollRef }) => {
 
     const dispatch = useDispatch()
 
+    // При первом маунте компонента вызываем эффект, который в свою очередь вызывает два запроса на сервер НБРБ
     useEffect(() => {
         dispatch(getUSDcurrency())
         dispatch(getEURcurrency())
     }, [dispatch])
+
+    // И достаем значения, записанные в поля глобального хранилища
+    const usdExchangeRate = useSelector(state => state.currency.exchangeRateUSD)
+    const eurExchangeRate = useSelector(state => state.currency.exchangeRateEUR)
+    
+    // Затем в блоке proposal-price-eur просто делим цену в белорусских рублях на текущий курс валют в банке
 
     return (
         <ToursStyles>
@@ -97,7 +101,7 @@ export const Tours = ({ scrollRef }) => {
                     <div className="proposal-show-wrapper">
                         <button className="proposal-show-all">Показать все предложения (101)</button>
                     </div>
-                    <Navbar/>
+                    <div className="tours-navbar-wrapper"><Navbar/></div> 
             </ContentContainer>
             <div className="proposal-navbar-bgc"></div>
         </ToursStyles>
@@ -105,10 +109,7 @@ export const Tours = ({ scrollRef }) => {
 }
 
 const ToursStyles = styled.div`
-    height: 100vh;
     position: relative;
-    display: flex;
-    flex-direction: column;
     .tours-main-bg {
         position: absolute;
         z-index: -3;
@@ -121,6 +122,9 @@ const ToursStyles = styled.div`
         justify-content: center;
         position: relative;
         padding-top: 120px;
+        @media(max-width: 900px) {
+            padding: 80px 0 160px;
+        }
         h2 {
             text-transform: uppercase;
             font-size: 28px;
@@ -139,10 +143,24 @@ const ToursStyles = styled.div`
                 color: #FFE400;
                 background-color: #000;
             }
+            @media(max-width: 1220px) {
+                width: 100%;
+            }
+         
         }
         margin-top: 144px;
         display: flex;
         justify-content: space-around;
+        @media(max-width: 1220px) {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 10px;
+            margin-top: 104px;
+        }
+        @media(max-width: 900px) {
+            margin-top: 0px;
+        }
+
         li {
            background-color: #FFE400;
            padding: 6px;
@@ -151,7 +169,7 @@ const ToursStyles = styled.div`
            border-radius: 2px;
            cursor: pointer;
            transition: 0.2s ease;
-           :hover {
+            :hover {
                 background-color: #000;
                 color: #FFE400;
             }
@@ -175,8 +193,12 @@ const ToursStyles = styled.div`
         margin-top: 60px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        li:nth-child(2) {
-            margin: 0 15px;
+        grid-gap: 15px;
+        @media(max-width: 900px) {
+            grid-template-columns: repeat(2, 1fr);
+            li:last-child {
+                display: none;
+            }
         }
     }
     @keyframes move-right {
@@ -190,6 +212,7 @@ const ToursStyles = styled.div`
         }
     }
     .proposal-card-item {
+        width: 100%;
         cursor: pointer;
         overflow: hidden;
         .proposal-price-usd-eur {
@@ -226,6 +249,15 @@ const ToursStyles = styled.div`
     .proposal-image-wrapper {
         position: relative;
         height: 288px;
+        @media(max-width: 1150px) {
+            height: 220px;
+        }
+        @media(max-width: 1050px) {
+            height: 200px;
+        }
+        @media(max-width: 900px) {
+            height: 261px;
+        }
         img {
             width: 100%;
             height: 100%;
@@ -246,6 +278,10 @@ const ToursStyles = styled.div`
         padding: 20px;
         font-size: 20px;
         background-color: #fff;
+        @media(max-width: 900px) {
+            height: 60px;
+            padding: 19px;
+        }
     }
     .proposal-country {
         color: #E1E1E1
@@ -262,13 +298,25 @@ const ToursStyles = styled.div`
         margin-top: 85px;
         margin-bottom: 83px;
         box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.2);
+        @media(max-width: 900px) {
+            margin: 60px 0 94px;
+            width: 100%;
+        }
+    }
+    .tours-navbar-wrapper {
+        @media(max-width: 900px) {
+            display: none;
+        }
     }
     .proposal-navbar-bgc {
-        height: 96.5px;
+        height: 102px;
         width: 100%;
         bottom: 0;
         z-index: -2;
         position: absolute;
         background-color: #fff;
+        @media(max-width: 900px) {
+            display: none;
+        }
     }
 `

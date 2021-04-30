@@ -4,27 +4,12 @@ const config = require('config')
 const app = express()
 const PORT = config.get('serverPort')
 const cors = require('cors')
-const User = require('./models/User')
+const registration = require('./routes/user')
 
 app.use(cors())
 app.use(express.json())
 
-app.post('/api/registration', cors(), async (req, res) => {
-    try {
-        const {name, tel} = req.body
-        console.log(name, tel)
-        const candidate = await User.findOne({tel})
-        if(candidate) {
-            return res.status(400).json({message: `Пользователь с таким телефоном уже существует`})
-        }
-        const user = new User({name, tel})
-        await user.save()
-        return res.status(200).json({message: 'Ваши данные сохранены'})
-    } catch (e) {
-        console.log(e)
-        res.send({message: 'Ошибка сервера'})
-    }
-});
+app.post('/api/registration', cors(), registration);
 
 const start = async () => { 
     try {

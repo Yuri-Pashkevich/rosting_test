@@ -11,9 +11,11 @@ export const App = () => {
     }
     return (
         <AppStyles>
-            <GlobalStyle/>
-            <Main scrollTotours={() => scrollToBlock(toTours)}/>
-            <Tours scrollRef={toTours}/>
+            <AppContainer>
+                <GlobalStyle/>
+                <Main scrollTotours={() => scrollToBlock(toTours)}/>
+                <Tours scrollRef={toTours}/>
+            </AppContainer>
         </AppStyles>
     )
 }
@@ -31,5 +33,10 @@ const AppStyles = styled.div`
             background-color: #000;
             color: #FFE400;
         }
+    }
+`
+const AppContainer = styled.div`
+    @media(max-width: 900px) {
+        width: 900px;
     }
 `

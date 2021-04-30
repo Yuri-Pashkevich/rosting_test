@@ -45,6 +45,9 @@ export const ContentContainer = styled.div`
     @media(max-width: 1220px) {
         width: auto;
     }
+    @media(max-width: 900px) {
+        
+    }
 `
 
 export const formStyle = {
@@ -65,7 +68,7 @@ export const formStyle = {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        top: calc(100vh - 50vh - 175px);
+        top: calc(100% - 50% - 175px);
         width: 550px;
         height: 250px;
         border-radius: 2px;

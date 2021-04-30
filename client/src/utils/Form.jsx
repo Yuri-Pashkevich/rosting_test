@@ -22,6 +22,7 @@ export const Form = () => {
 
     // Проверяем на валидность каждое поле формы перед отправкой на бэкэнд
     const onSubmit = e => {
+        // Отменяем действие по умолчанию, т.к. у нас SPA, а форма по стандарту перезагружает страницу при сабмите
         e.preventDefault()
         if(name === '' || tel === '')  {
             // Записываем в поле глобального состояния ошибку, если хотя бы одно из полей пустое
@@ -85,6 +86,14 @@ const FormStyles = styled.div`
         justify-content: center;
         margin-top: 92px;
         margin-right: 25px;
+        @media(max-width: 1030px) {
+            margin-top: 72px;
+        }
+        @media(max-width: 900px) {
+            margin: 115px 40px 205px 0;
+            flex-direction: column;
+            align-items: center;
+        }
         input {
             width: 265px;
             height: 62px;
@@ -96,6 +105,15 @@ const FormStyles = styled.div`
             padding-left: 24px;
             font-family: 'OpenSans Bold';
             color: #B7B7B7;
+            @media(max-width: 1030px) {
+                width: 210px;
+                height: 52px
+            }
+            @media(max-width: 900px) {
+                width: 406px;
+                height: 80px;
+                margin-bottom: 20px;
+            }
             ::placeholder {
                 color: #B7B7B7;
                 font-family: 'OpenSans Bold'
@@ -103,6 +121,9 @@ const FormStyles = styled.div`
         }
         input:nth-child(2) {
             margin: 0 8px;
+            @media(max-width: 900px) {
+                margin-bottom: 20px;
+            }
         }
         input:last-child {
             justify-content: center;
@@ -115,6 +136,13 @@ const FormStyles = styled.div`
             background-color: #FFED00;
             transition: 0.2s ease;
             cursor: pointer;
+            @media(max-width: 1030px) {
+                width: 270px;
+            }
+            @media(max-width: 900px) {
+                width: 406px;
+                height: 80px
+            }
             :hover {
                 background-color: #000000;
                 color: #FFED00;
